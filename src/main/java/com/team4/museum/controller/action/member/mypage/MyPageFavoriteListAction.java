@@ -3,7 +3,7 @@ package com.team4.museum.controller.action.member.mypage;
 import com.team4.museum.controller.action.Action;
 import com.team4.museum.dao.FavoriteDao;
 import com.team4.museum.util.Pagination;
-import com.team4.museum.vo.MemberVO;
+import com.team4.artgallery.vo.MemberVO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

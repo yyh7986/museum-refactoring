@@ -2,7 +2,7 @@ package com.team4.museum.controller;
 
 import com.team4.museum.controller.action.Action;
 import com.team4.museum.util.UrlUtil;
-import com.team4.museum.vo.MemberVO;
+import com.team4.artgallery.vo.MemberVO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;

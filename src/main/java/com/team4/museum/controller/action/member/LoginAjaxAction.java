@@ -5,7 +5,7 @@ import com.team4.museum.dao.MemberDao;
 import com.team4.museum.util.UrlUtil;
 import com.team4.museum.util.ajax.AjaxException;
 import com.team4.museum.util.ajax.AjaxResult;
-import com.team4.museum.vo.MemberVO;
+import com.team4.artgallery.vo.MemberVO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;

@@ -3,7 +3,7 @@ package com.team4.museum.controller.action.artwork;
 import com.team4.museum.controller.action.Action;
 import com.team4.museum.dao.ArtworkDao;
 import com.team4.museum.util.Security;
-import com.team4.museum.vo.ArtworkVO;
+import com.team4.artgallery.vo.ArtworkVO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

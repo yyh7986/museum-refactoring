@@ -1,7 +1,7 @@
 package com.team4.museum.dao;
 
 import com.team4.museum.util.Pagination;
-import com.team4.museum.vo.MemberGalleryVO;
+import com.team4.artgallery.vo.MemberGalleryVO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

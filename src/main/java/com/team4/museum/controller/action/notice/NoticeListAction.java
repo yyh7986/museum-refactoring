@@ -4,7 +4,7 @@ import com.team4.museum.controller.action.Action;
 import com.team4.museum.dao.NoticeDao;
 import com.team4.museum.util.NoticeCategory;
 import com.team4.museum.util.Pagination;
-import com.team4.museum.vo.NoticeVO;
+import com.team4.artgallery.vo.NoticeVO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

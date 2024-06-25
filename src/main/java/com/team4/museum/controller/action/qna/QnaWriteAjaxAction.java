@@ -3,7 +3,7 @@ package com.team4.museum.controller.action.qna;
 import com.team4.museum.controller.action.AjaxAction;
 import com.team4.museum.dao.QnaDao;
 import com.team4.museum.util.ajax.AjaxResult;
-import com.team4.museum.vo.QnaVO;
+import com.team4.artgallery.vo.QnaVO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
