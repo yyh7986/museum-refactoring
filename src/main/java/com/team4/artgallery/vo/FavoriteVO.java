@@ -1,16 +1,13 @@
-package com.team4.museum.vo;
+package com.team4.artgallery.vo;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class FavoriteVO extends ArtworkVO {
 
     private String memberId;
-
-    public String getMemberId() {
-        return memberId;
-    }
-
-    public void setMemberId(String memberId) {
-        this.memberId = memberId;
-    }
 
     public static FavoriteVO fromArtwork(ArtworkVO artwork) {
         FavoriteVO favorite = new FavoriteVO();
