@@ -11,6 +11,7 @@
             </div>
             <h2>LogIn</h2>
         </div>
+        <div>${message}</div>
         <div class="field">
             <label>
                 아이디
