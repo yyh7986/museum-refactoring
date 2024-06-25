@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team4.artgallery.dao.IArtworkDao">
+
+    <select id="getAllArtwork" resultType="com.team4.artgallery.vo.ArtworkVO">
+        SELECT *
+        FROM artwork
+        ORDER BY aseq DESC
+    </select>
+
+    <select id="getAllArtworkByCategory" resultType="com.team4.artgallery.vo.ArtworkVO">
+        SELECT *
+        FROM artwork
+        WHERE category=#{param1}
+        ORDER BY aseq DESC
+    </select>
+
+    <select id="getArtwork" resultType="com.team4.artgallery.vo.ArtworkVO">
+        SELECT *
+        FROM artwork
+        WHERE aseq=#{param1}
+    </select>
+
+    <select id="getArtworkBySearch" resultType="com.team4.artgallery.vo.ArtworkVO">
+        SELECT *
+        FROM artwork
+        WHERE name LIKE CONCAT('%', #{param1}, '%')
+           OR artist LIKE CONCAT('%', #{param1}, '%')
+        ORDER BY aseq DESC
+    </select>
+
+</mapper>
