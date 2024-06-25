@@ -29,27 +29,6 @@ public class Db {
         return conn;
     }
 
-    /**
-     * 주어진 Connection, PreparedStatement, ResultSet 객체를 닫습니다.
-     *
-     * @deprecated try-with-resources를 사용하여 자동으로 자원을 반환하도록 하기 위해 사용되지 않습니다.
-     */
-    public static void close(Connection conn, PreparedStatement pstmt, ResultSet rs) {
-        try {
-            if (rs != null) {
-                rs.close();
-            }
-            if (pstmt != null) {
-                pstmt.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public static void executeSqlFile(String sqlFilePath) {
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement()) {
@@ -175,45 +154,12 @@ public class Db {
     /**
      * SQL 쿼리를 실행하고 결과 중 첫 번째 행을 반환합니다.
      *
-     * @param resultMapper SQL 쿼리 결과를 매핑하는 람다식
-     */
-    public static <T> T executeSelectOne(String query, ResultMapper<T> resultMapper) {
-        return executeSelectOne(query, pstmt -> {
-        }, resultMapper);
-    }
-
-    /**
-     * SQL 쿼리를 실행하고 결과 중 첫 번째 행을 반환합니다.
-     *
      * @param paramSetter  SQL 쿼리를 준비하는 람다식
      * @param resultMapper SQL 쿼리 결과를 매핑하는 람다식
      */
     public static <T> T executeSelectOne(String query, ParameterSetter paramSetter, ResultMapper<T> resultMapper) {
         List<T> list = executeSelect(query, paramSetter, resultMapper);
         return list.isEmpty() ? null : list.get(0);
-    }
-
-    /**
-     * SQL 프로시저 쿼리를 실행하고 결과를 반환합니다.
-     *
-     * @param resultMapper 프로시저 결과를 추출하는 람다식
-     */
-    public static <T> T executeCall(String query, CallParameterSetter paramSetter, CallResultMapper<T> resultMapper) {
-        T result = null;
-
-        try ( // try-with-resources
-              Connection conn = getConnection();
-              CallableStatement pstmt = conn.prepareCall(query)) {
-
-            paramSetter.accept(pstmt);
-            pstmt.execute();
-            result = resultMapper.extract(pstmt);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return result;
     }
 
     /**
@@ -250,28 +196,6 @@ public class Db {
     @FunctionalInterface
     public interface ResultMapper<T> {
         T apply(ResultSet rs) throws SQLException;
-    }
-
-    /**
-     * {@link java.util.function.Consumer}의 역할을 수행
-     * <p>
-     * {@link java.sql.CallableStatement}를 처리하는 메서드에 대한 명시적인 의미를 부여하고,
-     * {@link java.sql.SQLException}을 던질 수 있도록 하기 위해 별도로 정의한 함수형 인터페이스입니다.
-     */
-    @FunctionalInterface
-    public interface CallParameterSetter {
-        void accept(CallableStatement cstmt) throws SQLException;
-    }
-
-    /**
-     * {@link java.util.function.Function}의 역할을 수행
-     * <p>
-     * {@link java.sql.CallableStatement}를 처리하고 결과를 반환하는 메서드에 대한 명시적인 의미를 부여하고,
-     * {@link java.sql.SQLException}을 던질 수 있도록 하기 위해 별도로 정의한 함수형 인터페이스입니다.
-     */
-    @FunctionalInterface
-    public interface CallResultMapper<T> {
-        T extract(CallableStatement cstmt) throws SQLException;
     }
 
 }

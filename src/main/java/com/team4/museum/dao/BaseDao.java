@@ -1,8 +1,6 @@
 package com.team4.museum.dao;
 
 import com.team4.museum.util.Db;
-import com.team4.museum.util.Db.CallParameterSetter;
-import com.team4.museum.util.Db.CallResultMapper;
 import com.team4.museum.util.Db.ParameterSetter;
 import com.team4.museum.util.Db.ResultMapper;
 
@@ -41,7 +39,7 @@ public abstract class BaseDao<T> {
      * SQL 쿼리를 실행하고 결과를 반환합니다.
      */
     public List<T> select(String query) {
-        return Db.executeSelect(query, this::parseVO);
+        return Db.executeSelect(query, this::parseDto);
     }
 
     /**
@@ -50,7 +48,7 @@ public abstract class BaseDao<T> {
      * @param params SQL 쿼리에 전달할 파라미터 배열
      */
     public List<T> select(String query, Object... params) {
-        return Db.executeSelect(query, prepareSetterFrom(params), this::parseVO);
+        return Db.executeSelect(query, prepareSetterFrom(params), this::parseDto);
     }
 
     /**
@@ -59,7 +57,7 @@ public abstract class BaseDao<T> {
      * @param paramSetter SQL 쿼리를 준비하는 람다식
      */
     public List<T> select(String query, ParameterSetter paramSetter) {
-        return Db.executeSelect(query, paramSetter, this::parseVO);
+        return Db.executeSelect(query, paramSetter, this::parseDto);
     }
 
     /**
@@ -100,56 +98,11 @@ public abstract class BaseDao<T> {
 
     /**
      * SQL 쿼리를 실행하고 결과 중 첫 번째 행을 반환합니다.
-     */
-    public T selectOne(String query) {
-        return Db.executeSelectOne(query, this::parseVO);
-    }
-
-    /**
-     * SQL 쿼리를 실행하고 결과 중 첫 번째 행을 반환합니다.
      *
      * @param param SQL 쿼리에 전달할 단일 파라미터, 혹은 파라미터 배열
      */
     public T selectOne(String query, Object param) {
-        return Db.executeSelectOne(query, prepareSetterFrom(param), this::parseVO);
-    }
-
-    /**
-     * SQL 쿼리를 실행하고 결과 중 첫 번째 행을 반환합니다.
-     *
-     * @param params SQL 쿼리에 전달할 파라미터 배열
-     */
-    public T selectOne(String query, Object... params) {
-        return Db.executeSelectOne(query, prepareSetterFrom(params), this::parseVO);
-    }
-
-    /**
-     * SQL 쿼리를 실행하고 결과 중 첫 번째 행을 반환합니다.
-     *
-     * @param paramSetter SQL 쿼리를 준비하는 람다식
-     */
-    public T selectOne(String query, ParameterSetter paramSetter) {
-        return Db.executeSelectOne(query, paramSetter, this::parseVO);
-    }
-
-    /**
-     * SQL 쿼리를 실행하고 결과 중 첫 번째 행을 반환합니다.
-     *
-     * @param paramSetter  SQL 쿼리를 준비하는 람다식
-     * @param resultMapper SQL 쿼리 결과를 매핑하는 람다식
-     */
-    public <R> R selectOne(String query, ParameterSetter paramSetter, ResultMapper<R> resultMapper) {
-        return Db.executeSelectOne(query, paramSetter, resultMapper);
-    }
-
-    /**
-     * SQL 프로시저 쿼리를 실행하고 결과를 반환합니다.
-     *
-     * @param paramSetter  SQL 쿼리를 준비하는 람다식
-     * @param resultMapper 프로시저 결과를 추출하는 람다식
-     */
-    public <R> R call(String query, CallParameterSetter paramSetter, CallResultMapper<R> resultMapper) {
-        return Db.executeCall(query, paramSetter, resultMapper);
+        return Db.executeSelectOne(query, prepareSetterFrom(param), this::parseDto);
     }
 
     private static ParameterSetter prepareSetterFrom() {
@@ -181,11 +134,11 @@ public abstract class BaseDao<T> {
     }
 
     /**
-     * ResultSet의 데이터를 통해 VO 객체를 생성합니다.
+     * ResultSet의 데이터를 통해 Dto 객체를 생성합니다.
      *
      * @param rs ResultSet 객체
-     * @return T VO 객체
+     * @return T Dto 객체
      */
-    abstract protected T parseVO(ResultSet rs) throws SQLException;
+    abstract protected T parseDto(ResultSet rs) throws SQLException;
 
 }

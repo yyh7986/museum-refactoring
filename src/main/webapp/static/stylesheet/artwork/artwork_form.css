@@ -1,0 +1,103 @@
+@charset "UTF-8";
+
+.artwork-form-header {
+    width: 80%;
+    margin: 0 auto;
+    height: 5rem;
+    font-size: 2rem;
+    text-align: center;
+    align-content: center;
+    border-bottom: 2px solid gray;
+}
+
+.artwork-form-main {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.artwork-form {
+    width: 100%;
+    display: flex;
+    margin: 2rem 0;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.artwork-form_info {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.artwork-form_info input[type="text"], .artwork-form_info input[type="file"],
+.artwork-form_info select {
+    width: 15rem;
+    height: 2rem;
+    border: none;
+    border-bottom: solid #aaaaaa 1px;
+    padding-left: 1rem;
+    align-content: center;
+    outline: none;
+}
+
+.artwork-form_info input[type="checkbox"],
+.artwork-form_info input[type="radio"] {
+    width: 1rem;
+    align-content: center;
+    margin-left: 1rem;
+}
+
+.artwork-form_info > ul, .artwork-form_info > div {
+    width: 50%;
+}
+
+.artwork-form_info li {
+    margin: 1.5rem 0;
+    display: flex;
+    align-items: center;
+}
+
+.artwork-form_info > div {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.artwork-form_info li > div, .artwork-form_info li > label, .artwork-form_info > div > label {
+    width: 20%;
+    height: 2rem;
+    align-content: center;
+    font-weight: bold;
+}
+
+.artwork-form_info label {
+    width: 5rem;
+    font-size: 1rem;
+    align-content: center;
+    margin-left: 5px;
+}
+
+.artwork-form-btn > input {
+    cursor: pointer;
+}
+
+.artwork-form-btn > input:hover {
+    border-bottom: solid black 2px;
+}
+
+.artwork-form img {
+    max-width: 700px;
+}
+
+.artwork-form textarea {
+    width: 40rem;
+    height: 30rem;
+    font-size: 1rem;
+    background-color: #8b8b8b1c;
+    color: black;
+    resize: none;
+    border: none;
+    border-bottom: 2px solid #0000007e;
+    outline: none;
+    padding: 1rem;
+}

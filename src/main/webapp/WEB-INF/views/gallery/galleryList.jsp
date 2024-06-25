@@ -1,37 +1,49 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<jsp:include page="/WEB-INF/views/header.jsp">
-	<jsp:param name="stylesheet" value="static/stylesheet/gallery.css" />
-	<jsp:param name="script" value="static/script/gallery.js" />
-</jsp:include>
+<%--@elvariable id="account" type="com.team4.artgallery.dto.MemberDto"--%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<t:layout>
+    <jsp:attribute name="head">
+        <title>갤러리 목록</title>
+        <link rel="stylesheet" href="<c:url value="/static/stylesheet/gallery.css"/>">
+        <script src="<c:url value="/static/script/gallery.js"/>"></script>
+    </jsp:attribute>
+
+    <jsp:attribute name="content">
+
 <main class="gallery-list">
-	<section class="gallery-list-header">
-		<form action="museum.do?command=galleryList" method="post" name="searchForm">
-			<h1>갤러리 검색</h1>
-			<div>
-				<input type="text" placeholder="제목 또는 내용을 검색하세요" name="searchWord" value="${searchWord}">
-				<input type="submit" value="검색" onclick="return go_search()" class="artwork-search-form_btn">
-			</div>
-		</form>
-	</section>
-	<section class="gallery-list-main">
-		<div class="gallery-list-main-title">
-			<h4>검색결과가 총 ${pagination.itemCount}건 입니다</h4>
-			<a href="museum.do?command=galleryWrite" class="gallery-btn">갤러리 등록</a>
-		</div>
-		<div class="gallery-list-main-content">
-			<c:forEach items="${galleryList}" var="mgvo">
-				<div onclick="location.href='museum.do?command=galleryView&mseq=${mgvo.mseq}'">
-					<img src="static/image/gallery/${mgvo.savefilename}" alt="member_gallery_image" />
-					<div class="gallery-list-main-content_info">
-						<h1 class="glmc_info-title">${mgvo.title}</h1>
-						<p class="glmc_info-name">${mgvo.authorName}님의갤러리</p>
-						<span>조회수 : ${mgvo.readcount}</span>
-					</div>
-				</div>
-			</c:forEach>
-		</div>
-		<%@ include file="/WEB-INF/views/util/pagination.jsp"%>
-	</section>
+    <section class="gallery-list-header">
+        <form action="<c:url value="/gallery"/>" method="get" name="searchForm">
+            <h1><label for="search">갤러리 검색</label></h1>
+            <div>
+                <input type="text" placeholder="제목 또는 내용을 검색하세요" name="search" id="search" value="${search}">
+                <input type="submit" value="검색" class="gallery-search-form_btn">
+            </div>
+        </form>
+    </section>
+    <section class="gallery-list-main">
+        <div class="gallery-list-main-title">
+            <h4>검색결과가 총 ${pagination.itemCount}건 입니다</h4>
+            <c:if test="${not empty account}">
+                <a href="<c:url value="/gallery/write"/>" class="gallery-btn">갤러리 등록</a>
+            </c:if>
+        </div>
+        <div class="gallery-list-main-content">
+            <c:forEach items="${galleryList}" var="galleryDto">
+                <a href="<c:url value="/gallery/${galleryDto.gseq}"/>">
+                    <img src="<c:url value="/static/image/gallery/${galleryDto.savefilename}"/>"
+                         alt="gallery_image"/>
+                    <div class="gallery-list-main-content_info">
+                        <h1 class="glmc_info-title">${galleryDto.title}</h1>
+                        <p class="glmc_info-name">${galleryDto.authorName}님의갤러리</p>
+                        <span>조회수 : ${galleryDto.readcount}</span>
+                    </div>
+                </a>
+            </c:forEach>
+        </div>
+        <t:pagination/>
+    </section>
 </main>
-<jsp:include page="/WEB-INF/views/footer.jsp" />
+
+    </jsp:attribute>
+</t:layout>

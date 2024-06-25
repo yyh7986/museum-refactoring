@@ -1,22 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<jsp:include page="/WEB-INF/views/header.jsp">
-    <jsp:param name="stylesheet" value="static/stylesheet/member/join_form.css"/>
-</jsp:include>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+
+<t:layout>
+    <jsp:attribute name="head">
+        <title>회원가입 :: 정보 입력</title>
+        <link rel="stylesheet" href="<c:url value="/static/stylesheet/member/join_form.css"/>">
+    </jsp:attribute>
+
+    <jsp:attribute name="content">
+
 <main class="join-form-wrapper">
-    <form class="join-form" method="post" action="museum.do?command=join&returnUrl=${returnUrl}"
-          onsubmit="ajaxSubmit(event)">
+    <form class="join-form" method="post" action="<c:url value="/member/join"/>" onsubmit="ajaxSubmit(event)">
+        <input type="hidden" name="returnUrl" value="${returnUrl}">
         <h2>회원가입</h2>
         <div class="field">
             <span>*</span>
             <label for="name">이름</label>
-            <input type="text" name="name" required/>
+            <input type="text" name="name" id="name" required/>
         </div>
         <div class="field">
             <span>*</span>
             <label for="id">아이디</label>
             <div class="id-wrapper">
                 <input type="text" name="id" id="id" size="12" required/>
-                <input type="button" value="중복 체크" onclick="ajax({command:'idCheck',id:this.form.id.value})">
+                <input type="button" value="중복 체크" onclick="ajax('/member/idCheck', {id: this.form.id.value})">
             </div>
         </div>
         <p style="font-size: 13px; margin-bottom: 20px;">아이디는 4자~12자 이내의 영문과 숫자로 공백 없이 입력하시면 됩니다. 영문 대소문자를 구분하지
@@ -47,4 +55,6 @@
         </div>
     </form>
 </main>
-<jsp:include page="/WEB-INF/views/footer.jsp"/>
+
+    </jsp:attribute>
+</t:layout>

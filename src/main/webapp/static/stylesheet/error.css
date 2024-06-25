@@ -1,0 +1,93 @@
+@charset "UTF-8";
+
+.error {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 4rem 0;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.error.bg-0 {
+    background-image: url('../image/404/undraw_0.svg');
+}
+
+.error.bg-1 {
+    background-image: url('../image/404/undraw_1.svg');
+}
+
+.error.bg-2 {
+    background-image: url('../image/404/undraw_2.svg');
+}
+
+.error.bg-3 {
+    background-image: url('../image/404/undraw_3.svg');
+}
+
+.error.bg-4 {
+    background-image: url('../image/404/undraw_4.svg');
+}
+
+.error.bg-5 {
+    background-image: url('../image/404/undraw_5.svg');
+}
+
+.error.bg-6 {
+    background-image: url('../image/404/undraw_6.svg');
+}
+
+.error h1, .error h2 {
+    font-weight: bold;
+    font-size: 3rem;
+    padding: 2rem 1rem;
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 0 .5rem #3F3F5F;
+    color: #1D1D1D;
+    background: #FFFA;
+}
+
+.error h2 {
+    font-size: 2rem;
+    padding: 1rem 1rem;
+}
+
+.error pre {
+    font-size: 1rem;
+    text-align: left;
+    line-height: 1.4rem;
+    text-wrap: wrap;
+    word-break: break-all;
+    padding: 2rem 1rem;
+    margin-top: 0.5rem;
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px);
+    color: #FFFA;
+    background: #1D1D1DCC;
+    transition: all 0.2s linear;
+}
+
+.error pre:hover {
+    color: #FFF;
+    background: #1D1D1D;
+}
+
+@media ( max-width: 768px) {
+    .error {
+        background-size: cover;
+    }
+
+    .error h1 {
+        font-size: 2rem;
+        padding: 1rem 0.5rem;
+    }
+
+    .error h2 {
+        font-size: 1.5rem;
+    }
+}

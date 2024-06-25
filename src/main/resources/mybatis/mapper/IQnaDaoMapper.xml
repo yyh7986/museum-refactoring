@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team4.artgallery.dao.IQnaDao">
+
+    <insert id="createInquiry" parameterType="com.team4.artgallery.dto.QnaDto" useGeneratedKeys="true"
+            keyProperty="qseq">
+        INSERT INTO qna (title, content, email, phone, publicyn, pwd)
+        VALUES (#{title}, #{content}, #{email}, #{phone}, #{publicyn}, #{pwd})
+    </insert>
+
+    <select id="getInquiry" parameterType="int" resultType="com.team4.artgallery.dto.QnaDto">
+        SELECT *
+        FROM qna
+        WHERE qseq = #{qseq}
+    </select>
+
+    <select id="getInquiries" parameterType="com.team4.artgallery.util.Pagination"
+            resultType="com.team4.artgallery.dto.QnaDto">
+        SELECT *
+        FROM qna
+        ORDER BY qseq DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="countInquiries" resultType="int">
+        SELECT COUNT(*)
+        FROM qna
+    </select>
+
+    <update id="updateInquiry" parameterType="com.team4.artgallery.dto.QnaDto">
+        UPDATE qna
+        SET title    = #{title},
+            content  = #{content},
+            email    = #{email},
+            phone    = #{phone},
+            publicyn = #{publicyn},
+            pwd      = #{pwd}
+        WHERE qseq = #{qseq}
+    </update>
+
+    <update id="updateReply">
+        UPDATE qna
+        SET reply = #{reply}
+        WHERE qseq = #{qseq}
+    </update>
+
+    <delete id="deleteInquiry" parameterType="int">
+        DELETE
+        FROM qna
+        WHERE qseq = #{qseq}
+    </delete>
+
+    <delete id="deleteInquiries" parameterType="list">
+        DELETE
+        FROM qna
+        WHERE qseq IN
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team4.artgallery.dao.IGalleryDao">
+    <resultMap id="GalleryResultMap" type="com.team4.artgallery.dto.GalleryDto">
+        <result column="author_id" property="authorId"/>
+        <result column="author_name" property="authorName"/>
+    </resultMap>
+
+    <sql id="search">
+        <where>
+            <if test="search != null and search != ''">
+                OR author_name LIKE CONCAT('%', #{search}, '%')
+                OR title LIKE CONCAT('%', #{search}, '%')
+                OR content LIKE CONCAT('%', #{search}, '%')
+            </if>
+        </where>
+    </sql>
+
+    <insert id="createGallery" parameterType="com.team4.artgallery.dto.GalleryDto"
+            useGeneratedKeys="true" keyProperty="gseq">
+        INSERT INTO gallery (author, title, content, image, savefilename)
+        VALUES (#{authorId}, #{title}, #{content}, #{image}, #{savefilename})
+    </insert>
+
+    <select id="getGallery" parameterType="int" resultMap="GalleryResultMap">
+        SELECT *
+        FROM gallery_view
+        WHERE gseq = #{gseq}
+    </select>
+
+    <select id="getGalleries" parameterType="com.team4.artgallery.util.Pagination" resultMap="GalleryResultMap">
+        SELECT *
+        FROM gallery_view
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="searchGalleries" resultMap="GalleryResultMap">
+        SELECT *
+        FROM gallery_view
+        <include refid="search"/>
+        LIMIT #{pagination.limit} OFFSET #{pagination.offset}
+    </select>
+
+    <select id="countGalleries" resultType="Integer">
+        SELECT COUNT(*)
+        FROM gallery
+    </select>
+
+    <select id="countSearchGalleries" parameterType="String" resultType="Integer">
+        SELECT COUNT(*)
+        FROM gallery_view
+        <include refid="search"/>
+    </select>
+
+    <update id="updateGallery" parameterType="com.team4.artgallery.dto.GalleryDto">
+        UPDATE gallery
+        SET author       = #{author},
+            title        = #{title},
+            content      = #{content},
+            image        = #{image},
+            savefilename = #{savefilename}
+        WHERE gseq = #{gseq}
+    </update>
+
+    <update id="increaseReadCount" parameterType="int">
+        UPDATE gallery
+        SET readcount = readcount + 1
+        WHERE gseq = #{gseq}
+    </update>
+
+    <delete id="deleteGallery" parameterType="int">
+        DELETE
+        FROM gallery
+        WHERE gseq = #{gseq}
+    </delete>
+
+    <delete id="deleteGalleries" parameterType="list">
+        DELETE
+        FROM gallery
+        WHERE gseq IN
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+</mapper>

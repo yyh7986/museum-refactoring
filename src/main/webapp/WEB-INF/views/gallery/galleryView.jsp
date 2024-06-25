@@ -1,21 +1,28 @@
+<%--@elvariable id="account" type="com.team4.artgallery.dto.MemberDto"--%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:include page="/WEB-INF/views/header.jsp">
-    <jsp:param name="stylesheet" value="static/stylesheet/gallery.css"/>
-    <jsp:param name="script" value="static/script/gallery.js"/>
-</jsp:include>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+
+<t:layout>
+    <jsp:attribute name="head">
+        <title>갤러리 :: ${galleryDto.title}</title>
+        <link rel="stylesheet" href="<c:url value="/static/stylesheet/gallery.css"/>">
+        <script src="<c:url value="/static/script/gallery.js"/>"></script>
+        <script type="text/javascript" src="https://ssl.pstatic.net/share/js/naver_sharebutton.js"></script>
+    </jsp:attribute>
+
+    <jsp:attribute name="content">
+
 <section class="gallery-view">
     <ul class="gallery-header">
-        <h1>${galleryVO.title}</h1>
-        <li>${galleryVO.content}</li>
+        <h1>${galleryDto.title}</h1>
+        <li>${galleryDto.content}</li>
         <li>
-            <a href="museum.do?command=galleryList&searchWord=${galleryVO.authorName}"> ${galleryVO.authorName}님의
-                갤러리 </a>
+            <a href="<c:url value="/gallery?search=${galleryDto.authorName}"/>"> ${galleryDto.authorName}님의 갤러리 </a>
         </li>
         <li>
-            <span>조회수 ${galleryVO.readcount}</span>
+            <span>조회수 ${galleryDto.readcount}</span>
             <span>
-				<script type="text/javascript" src="https://ssl.pstatic.net/share/js/naver_sharebutton.js"></script>
 				<script type="text/javascript">
 					new ShareNaver.makeButton({
                         "type": "b"
@@ -24,25 +31,30 @@
 			</span>
         </li>
         <li>
-			<span>
-				<input value="목록으로" type="button" class="gbtn-back gallery-btn"
-                       onclick="location.href='museum.do?command=galleryList'">
-			</span>
+            <a href="<c:url value="/gallery"/>">
+                <input value="목록으로" type="button" class="gbtn-back gallery-btn">
+            </a>
         </li>
-        <c:if test="${loginUser.id eq galleryVO.authorId}">
-            <li class="gbtn">
-                <input value="수정하기" type="button" class="gbtn-update gallery-btn"
-                       onclick="location.href='museum.do?command=galleryUpdate&mseq=${galleryVO.mseq}'">
-                <input value="삭제하기" type="button" class="gbtn-delete gallery-btn"
-                       onclick="go_delete(${galleryVO.mseq})">
-            </li>
-        </c:if>
+        <li class="gbtn">
+            <c:if test="${account.id eq galleryDto.authorId}">
+                <a class="gbtn-update gallery-btn" href="<c:url value="/gallery/update?gseq=${galleryDto.gseq}"/>">
+                    수정하기
+                </a>
+            </c:if>
+            <c:if test="${account.id eq galleryDto.authorId or account.admin}">
+                <div class="gbtn-delete gallery-btn" onclick="ajax('/gallery/delete', 'gseq=${galleryDto.gseq}')">
+                    삭제하기
+                </div>
+            </c:if>
+        </li>
+
     </ul>
     <ul class="gallery-main">
         <li>
-            <img alt="gallery-img" src="static/image/gallery/${galleryVO.savefilename}">
+            <img alt="gallery-img" src="<c:url value="/static/image/gallery/${galleryDto.savefilename}"/>">
         </li>
     </ul>
 </section>
 
-<jsp:include page="/WEB-INF/views/footer.jsp"/>
+    </jsp:attribute>
+</t:layout>

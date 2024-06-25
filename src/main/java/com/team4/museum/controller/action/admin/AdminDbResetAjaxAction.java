@@ -7,7 +7,7 @@ import com.team4.museum.util.ajax.AjaxResult;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import static com.team4.museum.controller.action.member.LoginAjaxAction.isAdmin;
+import static com.team4.museum.util.AccountUtil.isAdmin;
 
 public class AdminDbResetAjaxAction extends AjaxAction {
 
@@ -23,7 +23,7 @@ public class AdminDbResetAjaxAction extends AjaxAction {
         Db.executeSqlFile("database/init_view.sql");
         Db.executeSqlFile("database/insert_artwork.sql");
         Db.executeSqlFile("database/insert_member.sql");
-        Db.executeSqlFile("database/insert_member_gallery.sql");
+        Db.executeSqlFile("database/insert_gallery.sql");
         Db.executeSqlFile("database/insert_notice.sql");
         Db.executeSqlFile("database/insert_qna.sql");
         return created("DB가 초기화되었습니다.");
