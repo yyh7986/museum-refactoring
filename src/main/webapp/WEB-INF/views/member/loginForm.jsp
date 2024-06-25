@@ -3,7 +3,8 @@
     <jsp:param name="stylesheet" value="/static/stylesheet/member/login_form.css"/>
 </jsp:include>
 <main class="login-form-wrapper">
-    <form class="login-form" method="post" action="login&returnUrl=${returnUrl}"
+<%--    <form class="login-form" method="post" action="login&returnUrl=${returnUrl}"--%>
+    <form class="login-form" method="post" action="login"
           onsubmit="ajaxSubmit(event)">
         <div class="login_icon_box">
             <div>

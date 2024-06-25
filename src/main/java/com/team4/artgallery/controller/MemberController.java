@@ -27,13 +27,22 @@ public class MemberController {
     @PostMapping("/login")
     public String login(HttpServletRequest request,
                         @ModelAttribute MemberVO membervo, BindingResult result, Model model) {
+        HttpSession session = request.getSession();
         if(result.getFieldError("id") != null){
             model.addAttribute("message", result.getFieldError("id").getDefaultMessage());
         }else if(result.getFieldError("pwd") != null){
             model.addAttribute("message", result.getFieldError("pwd").getDefaultMessage());
         }else{
             MemberVO mvo = ms.getMember(membervo.getId());
+            if(mvo == null){
+                model.addAttribute("message", ">아이디< 혹은 비밀번호가 일치하지 않습니다");
+            }else if(!mvo.getPwd().equals(membervo.getPwd())){
+                model.addAttribute("message", "아이디 혹은 >비밀번호<가 일치하지 않습니다");
+            }else{
+                session.setAttribute("loginUser", mvo);
+            }
         }
+        return "redirect:/";
     }
 
 
