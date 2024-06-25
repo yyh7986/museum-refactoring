@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/header.jsp">
-    <jsp:param name="stylesheet" value="static/stylesheet/artwork.css"/>
-    <jsp:param name="script" value="static/script/artwork.js"/>
+    <jsp:param name="stylesheet" value="/static/stylesheet/artwork.css"/>
+    <jsp:param name="script" value="/static/script/artwork.js"/>
 </jsp:include>
 <section class="artwork-view">
     <div class="artwork-view-header">
@@ -32,7 +32,7 @@
                 </c:otherwise>
             </c:choose>
             <input type="button" value="목록으로"
-                   onclick="location.href='museum.do?command=artworkList&category=${category}'"/>
+                   onclick="location.href='/artwork'"/>
         </div>
     </div>
     <div class="artwork-view_img">
