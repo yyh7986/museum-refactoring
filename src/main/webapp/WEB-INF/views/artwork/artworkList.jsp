@@ -18,7 +18,8 @@
 		<c:forEach items="${ArtworkCategory.values()}" var="c">
 			<c:choose>
 				<c:when test="${category == c.name() or (empty category and c.name() == '전체')}">
-					<a href="museum.do?command=artworkList&category=${c.name()}&searchWord=${searchWord}" class="artwork-list_btn artwork-list_selected-btn">${c.name()}</a>
+<%--					<a href="/artwork?category=${c.name()}&searchWord=${searchWord}" class="artwork-list_btn artwork-list_selected-btn">${c.name()}</a>--%>
+					<a href="/artwork?category=${c.name()}" class="artwork-list_btn artwork-list_selected-btn">${c.name()}</a>
 				</c:when>
 				<c:otherwise>
 					<a href="/artwork?category=${c.name()}" class="artwork-list_btn">${c.name()}</a>
@@ -29,7 +30,7 @@
 </section>
 <main class="artwork-list-main">
 	<div class="artwork-list-head">
-		<h4>검색결과가 총 ${pagination.itemCount}건 입니다</h4>
+		<h4>검색결과가 총 ${artworkList.size()}건 입니다</h4>
 		<c:if test="${isAdmin}">
 			<a href="artworkWrite" class="artwork-list_btn">예술품 등록</a>
 		</c:if>
@@ -46,6 +47,6 @@
 			</div>
 		</c:forEach>
 	</div>
-	<%@ include file="/WEB-INF/views/util/pagination.jsp"%>
+<%--	<%@ include file="/WEB-INF/views/util/pagination.jsp"%>--%>
 </main>
 <jsp:include page="/WEB-INF/views/footer.jsp" />
