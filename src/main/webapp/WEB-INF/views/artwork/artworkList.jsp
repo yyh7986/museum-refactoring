@@ -9,7 +9,6 @@
 	<form action="artwork" name="searchForm" class="artwork-search-form">
 		<h1>예술품 검색</h1>
 		<div>
-			<input type="hidden" name="command" value="artworkList">
 			<input type="hidden" name="category" value="${category}">
 			<input type="text" placeholder="작품명 또는 작가명을 검색하세요" name="searchWord" class="artwork-search-form_input" value="${searchWord}">
 			<input type="submit" value="검색" class="artwork-search-form_btn">
