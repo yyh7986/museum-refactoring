@@ -2,15 +2,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.team4.artgallery.util.ArtworkCategory" %>
 <jsp:include page="/WEB-INF/views/header.jsp">
-    <jsp:param name="stylesheet" value="static/stylesheet/artwork.css"/>
-    <jsp:param name="script" value="static/script/artwork.js"/>
+    <jsp:param name="stylesheet" value="/static/stylesheet/artwork.css"/>
+    <jsp:param name="script" value="/static/script/artwork.js"/>
 </jsp:include>
 <h2 class="artwork-write-form-header">예술품 등록</h2>
 <section class="artwork-write-form-main">
-    <form method="post" name="artworkWriteForm" action="museum.do?command=artworkWriteForm" class="artwork-write-form"
+    <form method="post" name="artworkWriteForm" action="write" class="artwork-write-form"
           enctype="multipart/form-data">
         <div class="artwork-write-form_info">
             <ul>
+                <li>
+                    <div>${message}</div>
+                </li>
                 <li>
                     <div>작가명</div>
                     <input type="text" name="artist" onchange="changeValue('unknownArtist')">
@@ -19,7 +22,7 @@
                 </li>
                 <li>
                     <div>작품명</div>
-                    <input type="text" name="artname">
+                    <input type="text" name="name">
                 </li>
                 <li>
                     <div>제작연도</div>
@@ -46,9 +49,9 @@
                 </li>
                 <li>
                     <div>전시상태</div>
-                    <input type="radio" name="displayYn" value="Y" id="displayOn">
+                    <input type="radio" name="displayyn" value="Y" id="displayOn">
                     <label for="displayOn">공개</label>
-                    <input type="radio" name="displayYn" value="N" id="displayOff">
+                    <input type="radio" name="displayyn" value="N" id="displayOff">
                     <label for="displayOff">비공개</label>
                 </li>
                 <li>
@@ -65,8 +68,8 @@
             </div>
         </div>
         <div class="artwork-write-form-btn">
-            <input type="button" value="등록" onclick="artworkWrite(this)">
-            <input type="button" value="취소" onclick="location.href='museum.do?command=artworkList'">
+            <input type="submit" value="등록">
+            <input type="button" value="취소" onclick="location.href='/artwork'">
         </div>
     </form>
 </section>

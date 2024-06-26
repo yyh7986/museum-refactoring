@@ -26,8 +26,10 @@ public class MemberController {
 
     @PostMapping("/login")
     public String login(HttpServletRequest request,
-                        @ModelAttribute MemberVO membervo, BindingResult result, Model model) {
+                        @ModelAttribute @Valid MemberVO membervo,
+                        BindingResult result, Model model) {
         HttpSession session = request.getSession();
+        String url = "member/loginForm";
         if(result.getFieldError("id") != null){
             model.addAttribute("message", result.getFieldError("id").getDefaultMessage());
         }else if(result.getFieldError("pwd") != null){
@@ -40,9 +42,10 @@ public class MemberController {
                 model.addAttribute("message", "아이디 혹은 >비밀번호<가 일치하지 않습니다");
             }else{
                 session.setAttribute("loginUser", mvo);
+                url = "redirect:/";
             }
         }
-        return "redirect:/";
+        return url;
     }
 
 

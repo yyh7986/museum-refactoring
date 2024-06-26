@@ -32,4 +32,8 @@
         ORDER BY aseq DESC
     </select>
 
+    <insert id="insertArtwork" parameterType="com.team4.artgallery.vo.ArtworkVO">
+        INSERT INTO artwork(name, category, artist, year, material, size, displayyn, content, image, savefilename)
+        VALUES (#{name}, #{category}, #{artist}, #{year}, #{material}, #{size}, #{displayyn}, #{content}, #{image}, #{savefilename})
+    </insert>
 </mapper>

@@ -15,4 +15,6 @@ public interface IArtworkDao {
     List<ArtworkVO> getAllArtworkByCategory(String category);
 
     List<ArtworkVO> getArtworkBySearch(String searchWord);
+
+    void insertArtwork(ArtworkVO avo);
 }

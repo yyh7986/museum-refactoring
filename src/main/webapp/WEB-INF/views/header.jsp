@@ -112,7 +112,7 @@
         </h1>
         <div class="header_gnb">
             <div>
-                <a href="artwork">예술품</a>
+                <a href="/artwork">예술품</a>
                 <a href="museum.do?command=noticeList">소식지</a>
                 <a href="museum.do?command=galleryList">이용자 갤러리</a>
                 <a href="museum.do?command=qnaList">고객센터</a>
@@ -124,7 +124,7 @@
                     <c:if test="${not empty returnUrl}">
                         <c:set var="urlPath" value="${returnUrl}"/>
                     </c:if>
-                    <a href="member/login?returnUrl=${urlPath}" class="login-join-box_btn">로그인</a>
+                    <a href="member/login" class="login-join-box_btn">로그인</a>
                     <a href="museum.do?command=contract&returnUrl=${urlPath}">회원가입</a>
                 </c:when>
                 <c:otherwise>

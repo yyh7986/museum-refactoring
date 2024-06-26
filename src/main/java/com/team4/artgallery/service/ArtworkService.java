@@ -5,9 +5,6 @@ import com.team4.artgallery.vo.ArtworkVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,4 +29,7 @@ public class ArtworkService{
         return adao.getArtwork(aseq);
     }
 
+    public void insertArtwork(ArtworkVO avo) {
+        adao.insertArtwork(avo);
+    }
 }

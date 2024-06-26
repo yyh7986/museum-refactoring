@@ -3,9 +3,7 @@
     <jsp:param name="stylesheet" value="/static/stylesheet/member/login_form.css"/>
 </jsp:include>
 <main class="login-form-wrapper">
-<%--    <form class="login-form" method="post" action="login&returnUrl=${returnUrl}"--%>
-    <form class="login-form" method="post" action="login"
-          onsubmit="ajaxSubmit(event)">
+    <form class="login-form" method="post" action="login">
         <div class="login_icon_box">
             <div>
                 <img src="/static/image/ico_login_img.png" style="width: 80px; height: 80px;">
@@ -16,13 +14,13 @@
         <div class="field">
             <label>
                 아이디
-                <input name="id" type="text" placeholder="아이디" required>
+                <input name="id" type="text" placeholder="아이디">
             </label>
         </div>
         <div class="field">
             <label>
                 비밀번호
-                <input name="pwd" type="password" placeholder="비밀번호" required>
+                <input name="pwd" type="password" placeholder="비밀번호">
             </label>
         </div>
         <div class="btn">

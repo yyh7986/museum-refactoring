@@ -43,7 +43,7 @@ public class MuseumServlet extends HttpServlet {
                 System.out.print("[MEMBER:" + userId + "] ");
             }
         } else {
-            System.out.print("[GEUST] ");
+            System.out.print("[GUEST] ");
         }
 
         // URL Path 정보를 'urlPath'에 저장

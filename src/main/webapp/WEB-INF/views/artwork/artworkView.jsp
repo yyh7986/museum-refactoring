@@ -11,9 +11,9 @@
         </div>
         <div class="artwork-view_btn">
             <c:choose>
-                <c:when test="${isAdmin}">
+                <c:when test="${loginUser.isAdmin()}">
                     <c:choose>
-                        <c:when test="${artwork.displayyn.equals('Y')}">
+                        <c:when test="${artwork.isDisplay()}">
                             <input type="button" value="비공개로 전환"
                                    onclick="location.href='museum.do?command=artworkDisplaySet&aseq=${artwork.aseq}'">
                         </c:when>

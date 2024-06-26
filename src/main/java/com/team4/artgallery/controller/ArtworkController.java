@@ -3,16 +3,21 @@ package com.team4.artgallery.controller;
 import com.team4.artgallery.service.ArtworkService;
 import com.team4.artgallery.util.ArtworkCategory;
 import com.team4.artgallery.vo.ArtworkVO;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -44,9 +49,10 @@ public class ArtworkController {
     }
 
     @GetMapping("/view")
-    public String view(@RequestParam("aseq") int aseq, Model model) {
-        model.addAttribute("artwork", as.getArtwork(aseq));
-        return "artwork/artworkView";
+    public ModelAndView view(@RequestParam("aseq") int aseq) {
+        ModelAndView mav = new ModelAndView("artwork/artworkView");
+        mav.addObject("artwork", as.getArtwork(aseq));
+        return mav;
     }
 
     @GetMapping("/update")
@@ -57,6 +63,22 @@ public class ArtworkController {
     @GetMapping("/write")
     public String write() {
         return "artwork/artworkWriteForm";
+    }
+
+    @PostMapping("/write")
+    public String write(@ModelAttribute("artwork") @Valid ArtworkVO avo,
+                        BindingResult result, Model model) {
+        String url = "artwork/artworkWriteForm";
+        if(result.hasErrors()) {
+            result.getFieldErrors().forEach(error -> {
+                model.addAttribute("message", error.getDefaultMessage());
+            });
+
+        }else{
+            as.insertArtwork(avo);
+            url = "/artwork";
+        }
+        return url;
     }
 
 }
