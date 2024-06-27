@@ -17,4 +17,9 @@ public interface IArtworkDao {
     List<ArtworkVO> getArtworkBySearch(String searchWord);
 
     void insertArtwork(ArtworkVO avo);
+
+    List<ArtworkVO> getChcg(String category);
+
+    void deleteArtwork(int aseq);
+
 }

@@ -124,8 +124,8 @@
                     <c:if test="${not empty returnUrl}">
                         <c:set var="urlPath" value="${returnUrl}"/>
                     </c:if>
-                    <a href="member/login" class="login-join-box_btn">로그인</a>
-                    <a href="museum.do?command=contract&returnUrl=${urlPath}">회원가입</a>
+                    <a href="/member/login" class="login-join-box_btn">로그인</a>
+                    <a href="/member/contract">회원가입</a>
                 </c:when>
                 <c:otherwise>
                     <a href="museum.do?command=mypage" class="login-join-box_btn">${loginUser.name}(${loginUser.id})</a>

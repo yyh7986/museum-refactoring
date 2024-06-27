@@ -32,4 +32,12 @@ public class ArtworkService{
     public void insertArtwork(ArtworkVO avo) {
         adao.insertArtwork(avo);
     }
+
+    public List<ArtworkVO> getChcg(String category) {
+        return adao.getChcg(category);
+    }
+
+    public void deleteArtwork(int aseq) {
+        adao.deleteArtwork(aseq);
+    }
 }

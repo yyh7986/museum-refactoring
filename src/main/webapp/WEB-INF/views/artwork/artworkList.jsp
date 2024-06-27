@@ -22,12 +22,17 @@
                     <%--					<a href="/artwork?category=${c.name()}&searchWord=${searchWord}" class="artwork-list_btn artwork-list_selected-btn">${c.name()}</a>--%>
                     <a href="/artwork?category=${c.name()}"
                        class="artwork-list_btn artwork-list_selected-btn">${c.name()}</a>
+                    <%--                    <input type="button" class="artwork-list_btn artwork-list_selected-btn" value="${c.name()}"--%>
+                    <%--                           onclick="changeCategory('${c.name()}')">--%>
                 </c:when>
                 <c:otherwise>
                     <a href="/artwork?category=${c.name()}" class="artwork-list_btn">${c.name()}</a>
+                    <%--                    <input type="button" class="artwork-list_btn" value="${c.name()}"--%>
+                    <%--                           onclick="changeCategory('${c.name()}')">--%>
                 </c:otherwise>
             </c:choose>
         </c:forEach>
+        <div class="artwork-list_btn" onclick="changeCategory('디자인')">TEST</div>
     </div>
 </section>
 <main class="artwork-list-main">
@@ -37,7 +42,7 @@
             <a href="artwork/write" class="artwork-list_btn">예술품 등록</a>
         </c:if>
     </div>
-    <div class="artwork-list">
+    <div class="artwork-list" id="test1">
         <c:forEach items="${artworkList}" var="artwork">
             <div onclick="location.href='artwork/view?aseq=${artwork.aseq}'">
                 <img src="${artwork.fullSavefilename}" alt="artwork_image" class="artwork-list_img"/>
@@ -49,6 +54,8 @@
             </div>
         </c:forEach>
     </div>
+    <div>
+</div>
     <%@ include file="/WEB-INF/views/util/pagination.jsp" %>
 </main>
 <jsp:include page="/WEB-INF/views/footer.jsp"/>

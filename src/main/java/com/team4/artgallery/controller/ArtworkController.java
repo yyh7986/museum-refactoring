@@ -1,7 +1,6 @@
 package com.team4.artgallery.controller;
 
 import com.team4.artgallery.service.ArtworkService;
-import com.team4.artgallery.util.ArtworkCategory;
 import com.team4.artgallery.vo.ArtworkVO;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
@@ -76,9 +75,50 @@ public class ArtworkController {
 
         }else{
             as.insertArtwork(avo);
-            url = "/artwork";
+            url = "redirect:/artwork";
         }
         return url;
     }
+
+    @Autowired
+    ServletContext context;
+
+    @PostMapping("/fileup")
+    @ResponseBody
+    public HashMap<String, Object> fileup(@RequestParam("fileimage") MultipartFile file) {
+        String path = context.getRealPath("/static/image/artwork");
+        Calendar today = Calendar.getInstance();
+        long t = today.getTimeInMillis();
+        String filename = file.getOriginalFilename();
+        String fn1 = filename.substring(0, filename.indexOf(".") );  // 파일이름과 확장장 분리
+        String fn2 = filename.substring(filename.indexOf(".") );
+        String uploadPath = path + "/" + fn1 + t + fn2;
+        System.out.println("파일 저장 경로 = " + uploadPath);
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        try {
+            file.transferTo( new File(uploadPath) );  // 파일이 업로드 및 저장되는 명령
+            result.put("STATUS", 1);  // 파일 전송 상태
+            result.put("IMAGE", filename );
+            result.put("SAVEFILENAME", fn1 + t +  fn2 );
+        } catch (IllegalStateException e) {
+            e.printStackTrace();  result.put("STATUS", 0);
+        } catch (IOException e) {
+            e.printStackTrace();  result.put("STATUS", 0);
+        }
+        return result;
+    }
+
+    @GetMapping("/chcg")
+    @ResponseBody
+    public List<ArtworkVO> changeCategory(@RequestParam("category") String category) {
+        return as.getChcg(category);
+    }
+
+    @GetMapping("/delete")
+    public String delete(@RequestParam("aseq") int aseq) {
+        as.deleteArtwork(aseq);
+        return "redirect:/artwork";
+    }
+
 
 }

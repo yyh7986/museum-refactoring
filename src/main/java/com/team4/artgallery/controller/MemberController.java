@@ -12,6 +12,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
 @RequestMapping("/member")
 public class MemberController {
@@ -49,7 +52,7 @@ public class MemberController {
     }
 
 
-    @GetMapping("/join")
+    @PostMapping("/join")
     public String register() {
         return "member/joinForm";
     }
@@ -77,5 +80,33 @@ public class MemberController {
     @GetMapping("/mypage/favorite")
     public String favorite() {
         return "member/mypage/mypageFavoriteList";
+    }
+
+    @GetMapping("/idcheck")
+    @ResponseBody
+    public Map<String, Object> idcheck(@RequestParam(value = "id", required = false) String id) {
+
+        Map<String, Object> map = new HashMap<>();
+        String message = "";
+        String status = "100";
+        if(id.isEmpty()){
+            message = "아이디를 입력하세요";
+            status = "200";
+        }else if(ms.getMember(id) == null){
+            message = "사용가능한 아이디입니다";
+        }else{
+            message = "이미 사용중인 아이디입니다";
+            status = "300";
+        }
+        map.put("message", message);
+        map.put("status", status);
+        return map;
+//        if(id.isEmpty()){
+//            return "ERROR : id is empty";
+//        }else if(ms.getMember(id) == null){
+//            return "1";
+//        }else{
+//            return "-1";
+//        }
     }
 }

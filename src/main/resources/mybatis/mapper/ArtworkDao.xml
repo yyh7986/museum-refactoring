@@ -36,4 +36,17 @@
         INSERT INTO artwork(name, category, artist, year, material, size, displayyn, content, image, savefilename)
         VALUES (#{name}, #{category}, #{artist}, #{year}, #{material}, #{size}, #{displayyn}, #{content}, #{image}, #{savefilename})
     </insert>
+
+    <select id="getChcg" resultType="com.team4.artgallery.vo.ArtworkVO">
+        SELECT *
+        FROM artwork
+        WHERE category=#{param1}
+        ORDER BY aseq DESC
+    </select>
+
+    <delete id="deleteArtwork">
+        DELETE FROM artwork
+        WHERE aseq=#{param1}
+    </delete>
+
 </mapper>

@@ -56,10 +56,13 @@
                 </li>
                 <li>
                     <div>이미지 등록</div>
-                    <input type="file" name="image" accept="image/*" onchange="previewImage()">
+                    <%--<input type="file" name="image" accept="image/*" onchange="previewImage()">--%>
                 </li>
                 <li>
-                    <img alt="image" src="" name="uploadedImage">
+                    <%--<img alt="image" src="" name="uploadedImage">--%>
+                    <input type="hidden" name="image" id="image"> <!-- 전송될 파일이름 -->
+                    <input type="hidden" name="savefilename" id="savefilename">
+                    <div id="prevImg"></div>
                 </li>
             </ul>
             <div>
@@ -72,5 +75,43 @@
             <input type="button" value="취소" onclick="location.href='/artwork'">
         </div>
     </form>
+    <form method="post" name="fileUpForm" id="fileUp" enctype="multipart/form-data">
+        <input type="file" name="fileimage">
+        <input type="button" id="fileUpBtn" value="추가" onclick="fileUp()">
+    </form>
 </section>
+<%--<script>
+    const $fileUpForm = document.querySelector("#fileUp");
+    const $fileUpBtn = document.querySelector("#fileUpBtn");
+    const $prevImg = document.querySelector("#prevImg");
+    const $image = document.querySelector("#image");
+    const $savefilename = document.querySelector("#savefilename");
+
+    function fileUp() {
+        let formdata = new FormData($fileUpForm);
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "/artwork/fileup", true);
+
+        xhr.onload = function () {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                let data = JSON.parse(xhr.responseText);
+                if (data.STATUS == 1) {
+                    let div = document.createElement('div');
+                    div.textContent = data.SAVEFILENAME;
+                    $prevImg.appendChild(div);
+
+                    let img = document.createElement('img');
+                    img.src = "/static/image/artwork/" + data.SAVEFILENAME;
+                    img.height = "150";
+                    $prevImg.appendChild(img);
+
+                    $image.value = data.IMAGE;
+                    $savefilename.value = data.SAVEFILENAME;
+                }
+            }
+
+        }
+        xhr.send(formdata);
+    }
+</script>--%>
 <jsp:include page="/WEB-INF/views/footer.jsp"/>

@@ -2,11 +2,11 @@
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/header.jsp">
-    <jsp:param name="stylesheet" value="static/stylesheet/member/contract.css"/>
-    <jsp:param name="script" value="static/script/member.js"/>
+    <jsp:param name="stylesheet" value="/static/stylesheet/member/contract.css"/>
+    <jsp:param name="script" value="/static/script/member.js"/>
 </jsp:include>
 <main class="contract-form-wrapper">
-    <form class="contract-form" method="post" action="museum.do?command=joinForm&returnUrl=${returnUrl}"
+    <form class="contract-form" method="post" action="join"
           onsubmit="ajaxSubmit(event)" name="contractForm">
         <h2>가입 약관</h2>
         <div class="contract-field">

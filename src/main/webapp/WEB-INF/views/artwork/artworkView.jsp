@@ -48,14 +48,17 @@
             <li><span>규격</span> <span>${artwork.size}</span></li>
             <li><span>부문</span> <span>${artwork.category}</span></li>
             <c:if test="${isAdmin}">
-                <li><span>전시상태</span> <c:choose>
-                    <c:when test="${artwork.displayyn.equals('Y')}">
-                        <span>공개</span>
-                    </c:when>
-                    <c:otherwise>
-                        <span>비공개</span>
-                    </c:otherwise>
-                </c:choose></li>
+                <li>
+                    <span id="displayState">전시상태</span>
+                    <c:choose>
+                        <c:when test="${artwork.displayyn.equals('Y')}">
+                            <span>공개</span>
+                        </c:when>
+                        <c:otherwise>
+                            <span>비공개</span>
+                        </c:otherwise>
+                    </c:choose>
+                </li>
             </c:if>
         </ul>
     </div>
